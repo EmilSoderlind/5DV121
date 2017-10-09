@@ -17,7 +17,6 @@ class Node(object):
 
     def teachPerceptron(self, list):
         time.sleep(0.05)
-        print(self.weights)
         for i in range (len(list)): # Varje imgObj
             sum = 0
             for j in range(399):
