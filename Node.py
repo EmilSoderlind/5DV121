@@ -1,5 +1,6 @@
 import random
 import math
+import time
 
 class Node(object):
     weights = [] # 400 vikter
@@ -11,14 +12,18 @@ class Node(object):
         self.type = type
         # Slumpa 400 vikter.
         for i in range(399):
-            self.weights.append(random.random())
+            r = random.random()
+            self.weights.append(r)
 
     def teachPerceptron(self, list):
+        time.sleep(0.05)
+        print(self.weights)
         for i in range (len(list)): # Varje imgObj
             sum = 0
             for j in range(399):
                 sum = sum + (list[i].picture[j]*self.weights[j])
-            a = self.sigmoid(sum)
+                #print(list[i].picture[j], " * ", self.weights[j])
+            a = math.tanh(sum)
             y = 0
             if(list[i].facit == type):
                 y = 1
@@ -32,8 +37,5 @@ class Node(object):
             sum = 0
             for j in range(399):
                 sum = sum + (list[i].picture[j]*self.weights[j])
-            a = self.sigmoid(sum)
-            print("Node", self.type, "Says: ", a, "| index: ", i)
-
-    def sigmoid(self, x):
-        return 1 / (1 + math.exp(-x))
+            a = math.tanh(sum)
+            #print("Node", self.type, "Says: ", a, "| index: ", i)
