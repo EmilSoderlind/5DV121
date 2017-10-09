@@ -36,10 +36,11 @@ except:
 facitList = []
 #Räcker med for row in range (18) om vi vill börja från 0
 #Get the facit result as a list filled with int.
-for row in range(0, 18):
+
+for row in range(0, len(contentFacit)): # Går igenom hela contentFacit
     if((contentFacit[row][0:1] != '#') and (contentFacit[row] != '\n')):
         facitList.extend([int (contentFacit[row].split()[1])])
-#print (facitList)
+print (facitList)
 
 # Bygga ImageObj
 imageNr = 0
