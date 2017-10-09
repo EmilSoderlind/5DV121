@@ -11,12 +11,13 @@ happyNode = Node.Node(0.5, 1)
 #michNode = Node.Node(0.5, 3)
 #sadNode = Node.Node(0.5, 2)
 
-happyNode.teachPerceptron(imgList[0:199])
+happyNode.teachPerceptron(imgList[0:200])
 #angryNode.teachPerceptron(imgList[0:199])
 #michNode.teachPerceptron(imgList[0:199])
 #sadNode.teachPerceptron(imgList[0:199])
 
-happyNode.examinePerceptron(imgList[200:300])
-#angryNode.examinePerceptron(imgList[200:300])
-#michNode.examinePerceptron(imgList[200:300])
-#sadNode.examinePerceptron(imgList[200:300])
+#for i in range(200,300):
+    #print(i,"|", happyNode.type,"--> ", happyNode.examinePerceptron(imgList[i]))
+    #print(i,"|", angryNode.type,"--> ", angryNode.examinePerceptron(imgList[i]))
+    #print(i,"|", michNode.type,"--> ", michNode.examinePerceptron(imgList[i]))
+    #print(i,"|", sadNode.type,"--> ", sadNode.examinePerceptron(imgList[i]))
