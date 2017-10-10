@@ -5,7 +5,7 @@ import time
 class Node(object):
     weights = [] # 400 vikter
     type = 0 # 1-4
-    learningRate = 0.1
+    learningRate = 0
 
     def __init__(self, learningRate, type):
         self.learningRate = learningRate

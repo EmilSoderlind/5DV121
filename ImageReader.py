@@ -25,7 +25,7 @@ def parse(fileN, facitN):
                 row = row + 1
                 # print(content[row].split())
                 for i in range(row, row + 20):
-                    pixel_list.extend([int(j) for j in content[i].split()])
+                    pixel_list.extend([float(x)/31 for x in content[i].split(' ')])
                 row = row + 20
 
     # Parsa facit fil
