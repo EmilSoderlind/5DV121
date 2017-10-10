@@ -71,9 +71,9 @@ while True:
     meanSqError = meanSqError/4
 
     examineResult.append(exmamineNetwork()*100)
-    print("MeanSqError: ", meanSqError)
+    print("Training-Set MeanSqError: ", meanSqError)
     index += 1
-    if meanSqError < 0.01:
+    if meanSqError < 0.0015:
         break
 
 #for h in range(200):
