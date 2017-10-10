@@ -28,7 +28,7 @@ class Node:
             meanSqError = meanSqError + (e*e)
             for k in range(0, len(list[i].picture)):
                 deltaW = self.learningRate * e * list[i].picture[k]
-            self.weights[k] = self.weights[k] + deltaW
+                self.weights[k] = self.weights[k] + deltaW
         meanSqError = meanSqError/len(list)
         return meanSqError
 
