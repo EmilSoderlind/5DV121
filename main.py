@@ -3,7 +3,6 @@ from Node import Node
 from random import shuffle
 import matplotlib.pyplot as plt
 
-
 fileName = "training.txt"
 facitName = "training-facit.txt"
 
@@ -12,10 +11,10 @@ imgList = ImageReader.parse(fileName,facitName)
 trainingList = imgList[0:200]
 examineList = imgList[200:300]
 
-happyNode = Node(0.04, 1)
-angryNode = Node(0.04, 4)
-michNode = Node(0.04, 3)
-sadNode = Node(0.04, 2)
+happyNode = Node(0.004, 1)
+angryNode = Node(0.004, 4)
+michNode = Node(0.004, 3)
+sadNode = Node(0.004, 2)
 
 def exmamineNetwork():
 
@@ -60,9 +59,24 @@ def exmamineNetwork():
 
 examineResult = []
 
-index = 0
-while True:
-    print("Session: ", index)
+#index = 0
+#while True:
+#    print("Session: ", index)
+#    shuffle(trainingList)
+#    meanSqError = sadNode.teachPerceptron(trainingList[0:200])
+#    meanSqError = meanSqError + michNode.teachPerceptron(trainingList[0:200])
+#    meanSqError = meanSqError + happyNode.teachPerceptron(trainingList[0:200])
+#    meanSqError = meanSqError + angryNode.teachPerceptron(trainingList[0:200])
+#    meanSqError = meanSqError/4
+#
+#    examineResult.append(exmamineNetwork()*100)
+#    print("Training-Set MeanSqError: ", meanSqError)
+#    index += 1
+#    if meanSqError < 0.00025:
+#        break
+
+for h in range(150):
+    print("Session: ", h)
     shuffle(trainingList)
     meanSqError = sadNode.teachPerceptron(trainingList[0:200])
     meanSqError = meanSqError + michNode.teachPerceptron(trainingList[0:200])
@@ -70,24 +84,9 @@ while True:
     meanSqError = meanSqError + angryNode.teachPerceptron(trainingList[0:200])
     meanSqError = meanSqError/4
 
-    examineResult.append(exmamineNetwork()*100)
-    print("Training-Set MeanSqError: ", meanSqError)
-    index += 1
-    if meanSqError < 0.0015:
-        break
-
-#for h in range(200):
-#    print("Session: ", h)
-#    shuffle(trainingList)
-#    meanSqError = sadNode.teachPerceptron(trainingList[0:200])
-#    meanSqError = meanSqError + michNode.teachPerceptron(trainingList[0:200])
-#    meanSqError = meanSqError + happyNode.teachPerceptron(trainingList[0:200])
-#    meanSqError = meanSqError + angryNode.teachPerceptron(trainingList[0:200])
-#    print("mse*4: ", meanSqError)
-#    meanSqError = meanSqError/4
-#
-#    examineResult.append(exmamineNetwork()*100)
-#    print("MeanSqError: ", meanSqError)
+    if (h%10) == 0:
+        examineResult.append(exmamineNetwork()*100)
+        print("MeanSqError: ", meanSqError)
 
 plt.plot(examineResult)
 plt.xlabel('Session')
@@ -95,7 +94,3 @@ plt.ylabel('Result %')
 plt.title('Perceptron-Network results over time')
 
 plt.show()
-
-
-
-
