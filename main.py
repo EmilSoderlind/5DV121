@@ -11,18 +11,18 @@ imgList = ImageReader.parse(fileName,facitName)
 trainingList = imgList[0:200]
 examineList = imgList[200:300]
 
-happyNode = Node(0.004, 1)
-angryNode = Node(0.004, 4)
-michNode = Node(0.004, 3)
-sadNode = Node(0.004, 2)
+happyNode = Node(0.003, 1)
+angryNode = Node(0.003, 4)
+michNode = Node(0.003, 3)
+sadNode = Node(0.003, 2)
 
-def exmamineNetwork():
+def exmamineNetwork(examList):
 
     correctTimes = 0
     sessionsRun = 0
 
-    for i in range(0, len(examineList)):
-        correctAnsver = examineList[i].facit
+    for i in range(0, len(examList)):
+        correctAnsver = examList[i].facit
 
         bestGuess = 0
         bestGuessNode = 0
@@ -32,24 +32,24 @@ def exmamineNetwork():
         #print("michNode: ", michNode.examinePerceptron(examineList[i]))
         #print("sadNode: ", sadNode.examinePerceptron(examineList[i]))
 
-        bestGuess = happyNode.examinePerceptron(examineList[i])
+        bestGuess = happyNode.examinePerceptron(examList[i])
         bestGuessNode = happyNode.type
 
-        if(angryNode.examinePerceptron(examineList[i]) > bestGuess):
-            bestGuess = angryNode.examinePerceptron(examineList[i])
+        if(angryNode.examinePerceptron(examList[i]) > bestGuess):
+            bestGuess = angryNode.examinePerceptron(examList[i])
             bestGuessNode = angryNode.type
 
-        if(michNode.examinePerceptron(examineList[i]) > bestGuess):
-            bestGuess = michNode.examinePerceptron(examineList[i])
+        if(michNode.examinePerceptron(examList[i]) > bestGuess):
+            bestGuess = michNode.examinePerceptron(examList[i])
             bestGuessNode = michNode.type
 
-        if(sadNode.examinePerceptron(examineList[i]) > bestGuess):
-            bestGuess = sadNode.examinePerceptron(examineList[i])
+        if(sadNode.examinePerceptron(examList[i]) > bestGuess):
+            bestGuess = sadNode.examinePerceptron(examList[i])
             bestGuessNode = sadNode.type
 
         #print("Nodes think it is ", bestGuessNode, " by ", bestGuess)
         #print("Correct type: ", correctAnsver)
-        shuffle(examineList)
+        shuffle(examList)
         if(bestGuessNode == correctAnsver):
             correctTimes = correctTimes + 1
         sessionsRun = sessionsRun + 1
@@ -85,7 +85,7 @@ for h in range(150):
     meanSqError = meanSqError/4
 
     if (h%10) == 0:
-        examineResult.append(exmamineNetwork()*100)
+        examineResult.append(exmamineNetwork(examineList)*100)
         print("MeanSqError: ", meanSqError)
 
 plt.plot(examineResult)
