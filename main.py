@@ -9,7 +9,6 @@ facitName = "training-facit.txt"
 def main():
     print("#Starting FaceSkynet")
 
-    # Get file names
     #TODO Get filenames from "terminal-parameters"
     # ex. "python faces.py training-file.txt training-facit.txt test-file.txt"
 
@@ -17,12 +16,16 @@ def main():
     trainingImgList = ImageReader.parse(fileName, facitName)
     examineImgList = "dsfdsfs" # TODO Import examineImgList
 
-    trainingList = trainingImgList[0:200]
-    examineList = trainingImgList[200:300]
+    trainingList = trainingImgList[0:200] # TODO Remove when we use ".txt" files
+    examineList = trainingImgList[200:300] # TODO Remove when we use ".txt" files
 
     learningRate = 0.003
     nodeList = [] # List to store nodes in
     nodeList.extend([Node(learningRate, 1), Node(learningRate, 2), Node(learningRate, 3), Node(learningRate, 4)])
+
+    # TODO Train on training-file.txt + training-facit.txt
+
+    # TODO Examine on test-file.txt
 
     examineResult = [] # List to store examine result in, being plotted later..
 
@@ -46,12 +49,14 @@ def main():
 
     plt.show()
 
+# Train the perceptron with a list of images & facit in 150 sessions
 def trainNetworkOnImgList(nodeList, trainList):
     for h in range(150): # 150 training sessions
         shuffle(trainList)
         for p in range(0,4): # Teach each node the training-set of images every session
             nodeList[p].teachPerceptron(trainList)
 
+# Examine the perceptron on a examlist of unseen images, prints to console the result
 def exmamineNetwork(nodeList, examList):
 
     correctTimes = 0
