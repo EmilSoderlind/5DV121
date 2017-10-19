@@ -2,13 +2,41 @@ import ImageReader
 from Node import Node
 from random import shuffle
 import matplotlib.pyplot as plt
+import sys
 
-fileName = "training.txt"
-facitName = "training-facit.txt"
 
 def main():
     print("#Starting FaceSkynet")
 
+    trainingListFileName = "training-A.txt"
+    trainingFacitFileName = "facit-A.txt"
+    examineFileName = "test-B.txt"
+
+    if(len(sys.argv) == 4):
+        trainingListFileName = sys.argv[1]
+        trainingFacitFileName = sys.argv[2]
+        examineFileName = sys.argv[3]
+
+
+    defaultTestImgList = ImageReader.parse(trainingListFileName,trainingFacitFileName)
+    examineImgList = ImageReader.parseTest(examineFileName)
+
+    learningRate = 0.003
+    nodeList = [] # List to store nodes in
+    nodeList.extend([Node(learningRate, 1), Node(learningRate, 2), Node(learningRate, 3), Node(learningRate, 4)])
+
+    trainingPart = 0.8
+    trainingImgList = defaultTestImgList[0:int(len(defaultTestImgList)*trainingPart)]
+    trainingExamImgList = defaultTestImgList[int(len(defaultTestImgList)*trainingPart):len(defaultTestImgList)]
+
+    print("trainingImgList: LEN ", len(trainingImgList))
+    #print("trainingExamImgList: ", trainingExamImgList)
+
+    # TODO Träna på training tills trainingExam > X %
+    trainNetworkOnImgList(nodeList,trainingImgList,trainingExamImgList)
+
+
+    # TODO Kör ExamineList och printa ut resultat
 
 def oldMain():
     print("#Starting FaceSkynet")
@@ -54,11 +82,12 @@ def oldMain():
     plt.show()
 
 # Train the perceptron with a list of images & facit in 150 sessions
-def trainNetworkOnImgList(nodeList, trainList):
+def trainNetworkOnImgList(nodeList, trainList, trainingExamImgList):
     for h in range(150): # 150 training sessions
         shuffle(trainList)
         for p in range(0,4): # Teach each node the training-set of images every session
             nodeList[p].teachPerceptron(trainList)
+        print(exmamineNetwork(nodeList, trainingExamImgList))
 
 # Examine the perceptron on a examlist of unseen images, prints to console the result
 def exmamineNetwork(nodeList, examList):

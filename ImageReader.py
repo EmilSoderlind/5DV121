@@ -1,7 +1,5 @@
 from Image import Image
 
-fileName = "training.txt"
-facitName = "training-facit.txt"
 imgList = []
 
 def parse(fileN, facitN): # Parse Learning-file + facit-file
