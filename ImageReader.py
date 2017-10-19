@@ -1,10 +1,13 @@
 from Image import Image
 
-imgList = []
+
 
 def parse(fileN, facitN): # Parse Learning-file + facit-file
     fileName = fileN
     facitName = facitN
+
+    imgList = []
+
 
     try:
         with open(fileName) as f:
@@ -49,6 +52,8 @@ def parse(fileN, facitN): # Parse Learning-file + facit-file
 
 def parseTest(fileN): #Parse a test-file without facit
     fileName = fileN
+
+    imgList = []
 
     try:
         with open(fileName) as f:

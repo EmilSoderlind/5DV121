@@ -6,7 +6,6 @@ import sys
 
 
 def main():
-    print("#Starting FaceSkynet")
 
     trainingListFileName = "training-A.txt"
     trainingFacitFileName = "facit-A.txt"
@@ -29,14 +28,10 @@ def main():
     trainingImgList = defaultTestImgList[0:int(len(defaultTestImgList)*trainingPart)]
     trainingExamImgList = defaultTestImgList[int(len(defaultTestImgList)*trainingPart):len(defaultTestImgList)]
 
-    print("trainingImgList: LEN ", len(trainingImgList))
-    #print("trainingExamImgList: ", trainingExamImgList)
-
-    # TODO Träna på training tills trainingExam > X %
     trainNetworkOnImgList(nodeList,trainingImgList,trainingExamImgList)
 
+    exmamineNetwork(nodeList,examineImgList,True)
 
-    # TODO Kör ExamineList och printa ut resultat
 
 def oldMain():
     print("#Starting FaceSkynet")
@@ -83,14 +78,22 @@ def oldMain():
 
 # Train the perceptron with a list of images & facit in 150 sessions
 def trainNetworkOnImgList(nodeList, trainList, trainingExamImgList):
-    for h in range(150): # 150 training sessions
+    timesOverThresh = 0
+    tresh = 0.7
+
+    for h in range(200): # 150 training sessions
         shuffle(trainList)
         for p in range(0,4): # Teach each node the training-set of images every session
             nodeList[p].teachPerceptron(trainList)
-        print(exmamineNetwork(nodeList, trainingExamImgList))
+        if(exmamineNetwork(nodeList, trainingExamImgList,False) > tresh):
+            timesOverThresh += 1
+            if(timesOverThresh == 3):
+                break
+        else:
+            timesOverThresh = 0
 
 # Examine the perceptron on a examlist of unseen images, prints to console the result
-def exmamineNetwork(nodeList, examList):
+def exmamineNetwork(nodeList, examList, showResult):
 
     correctTimes = 0
     sessionsRun = 0
@@ -106,12 +109,15 @@ def exmamineNetwork(nodeList, examList):
             if(nodeList[h].examinePerceptron(examList[i]) > bestGuess):
                 bestGuess = nodeList[h].examinePerceptron(examList[i])
                 bestGuessNode = nodeList[h].type
-        print("Image{} {}".format(i+1, bestGuessNode))
+
+        if(showResult):
+            print("Image{} {}".format(i+1, bestGuessNode))
+
         shuffle(examList)
         if(bestGuessNode == correctAnsver):
             correctTimes = correctTimes + 1
         sessionsRun = sessionsRun + 1
-    print("RESULT Examine session: Correct ", (correctTimes/sessionsRun)*100, " %")
+    #print("RESULT Examine session: Correct ", (correctTimes/sessionsRun)*100, " %")
     return correctTimes/sessionsRun
 
 if __name__ == "__main__":
