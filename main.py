@@ -9,6 +9,10 @@ facitName = "training-facit.txt"
 def main():
     print("#Starting FaceSkynet")
 
+
+def oldMain():
+    print("#Starting FaceSkynet")
+
     #TODO Get filenames from "terminal-parameters"
     # ex. "python faces.py training-file.txt training-facit.txt test-file.txt"
 
