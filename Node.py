@@ -10,15 +10,14 @@ class Node:
         self.weights = []
         # Slumpa 400 vikter.
         for i in range(0, 400):
-            #r = int.from_bytes(os.urandom(8), byteorder="big") / ((1 << 64) - 1)
-            r= random.random()
-            self.weights.append(r)
+            self.weights.append(random.uniform(0,1))
 
     def sigmoid(self,x):
         return math.exp(-np.logaddexp(0, -x))
 
     def teachPerceptron(self, list):
-        meanSqError = 0
+        #meanSqError = 0
+        errorSum=0
         for i in range (0, len(list)): # går igenom varje imgObj
             summa = 0
             for j in range(0, len(list[i].picture)): # Går igenom varje pixel/vikt
@@ -28,12 +27,14 @@ class Node:
             if list[i].facit == self.type:
                 y = 1
             e = y-a
-            meanSqError = meanSqError + (e*e)
+            errorSum= errorSum+ math.fabs(e)
+            #meanSqError = meanSqError + (e*e)
             for k in range(0, len(list[i].picture)):
                 deltaW = self.learningRate * e * list[i].picture[k]
                 self.weights[k] = self.weights[k] + deltaW
-        meanSqError = meanSqError/len(list)
-        return meanSqError
+        #meanSqError = meanSqError/len(list)
+        #return meanSqError
+        return errorSum
 
     def examinePerceptron(self, img):
         #print("vikter: ", self.weights)
@@ -42,8 +43,3 @@ class Node:
             summa = summa + (img.picture[j] * self.weights[j])
         a = self.sigmoid(summa)
         return(a)
-
-#    def rotatePics(self, img):
-#        print(img[0].picture)
-#        img[0].picture.reshape(20,20)
-#        print(img[0].picture)

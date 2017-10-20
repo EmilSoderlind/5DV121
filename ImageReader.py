@@ -1,14 +1,10 @@
 from Image import Image
 
 
-
 def parse(fileN, facitN): # Parse Learning-file + facit-file
     fileName = fileN
     facitName = facitN
-
     imgList = []
-
-
     try:
         with open(fileName) as f:
             content = f.readlines()
